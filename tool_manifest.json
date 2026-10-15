@@ -1,0 +1,241 @@
+{
+  "tools": [
+    {
+      "name": "get_fl_status",
+      "title": null,
+      "description": "Check the live FL bridge, version, current selection, recording state and capabilities.",
+      "inputSchema": {
+        "properties": {},
+        "title": "get_fl_statusArguments",
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": null,
+        "openWorldHint": false
+      },
+      "_meta": null,
+      "execution": null
+    },
+    {
+      "name": "list_fl_tracks",
+      "title": null,
+      "description": "List track names and indices; channel results also show mixer routing. Follow next_start.",
+      "inputSchema": {
+        "properties": {
+          "kind": {
+            "default": "mixer",
+            "enum": [
+              "mixer",
+              "channel"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "start": {
+            "default": 0,
+            "description": "First index in this page",
+            "minimum": 0,
+            "title": "Start",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 32,
+            "description": "Maximum tracks to read",
+            "maximum": 64,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "list_fl_tracksArguments",
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": null,
+        "openWorldHint": false
+      },
+      "_meta": null,
+      "execution": null
+    },
+    {
+      "name": "list_fl_plugins",
+      "title": null,
+      "description": "Discover loaded effects on a mixer track, or the instrument at a global channel index.",
+      "inputSchema": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "effect",
+              "instrument"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "index": {
+            "description": "Zero-based mixer or global channel index",
+            "minimum": 0,
+            "title": "Index",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "kind",
+          "index"
+        ],
+        "title": "list_fl_pluginsArguments",
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": null,
+        "openWorldHint": false
+      },
+      "_meta": null,
+      "execution": null
+    },
+    {
+      "name": "get_fl_parameters",
+      "title": null,
+      "description": "Read parameter names, normalized values, display units and short-lived edit handles. Follow next_start.",
+      "inputSchema": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "effect",
+              "instrument"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "index": {
+            "description": "Zero-based mixer or global channel index",
+            "minimum": 0,
+            "title": "Index",
+            "type": "integer"
+          },
+          "slot": {
+            "default": -1,
+            "description": "Effect slot 0-9, instrument -1",
+            "maximum": 9,
+            "minimum": -1,
+            "title": "Slot",
+            "type": "integer"
+          },
+          "start": {
+            "default": 0,
+            "description": "First parameter index",
+            "minimum": 0,
+            "title": "Start",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 64,
+            "description": "Maximum parameters per page",
+            "maximum": 128,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "kind",
+          "index"
+        ],
+        "title": "get_fl_parametersArguments",
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": null,
+        "openWorldHint": false
+      },
+      "_meta": null,
+      "execution": null
+    },
+    {
+      "name": "set_fl_parameter",
+      "title": null,
+      "description": "Change one freshly inspected knob and return actual readback. Refuses stale values and recording; stores bridge undo.",
+      "inputSchema": {
+        "properties": {
+          "handle": {
+            "description": "Fresh handle from get_fl_parameters",
+            "title": "Handle",
+            "type": "string"
+          },
+          "value": {
+            "description": "Requested normalized value, not a physical unit",
+            "maximum": 1,
+            "minimum": 0,
+            "title": "Value",
+            "type": "number"
+          },
+          "max_delta": {
+            "default": 0.1,
+            "description": "Largest intentional normalized move from the inspected value",
+            "maximum": 1,
+            "minimum": 0,
+            "title": "Max Delta",
+            "type": "number"
+          }
+        },
+        "required": [
+          "handle",
+          "value"
+        ],
+        "title": "set_fl_parameterArguments",
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": null,
+        "openWorldHint": false
+      },
+      "_meta": null,
+      "execution": null
+    },
+    {
+      "name": "undo_fl_change",
+      "title": null,
+      "description": "Restore the latest bridge knob change, provided the plugin and value still match. Does not invoke FL's global undo.",
+      "inputSchema": {
+        "properties": {},
+        "title": "undo_fl_changeArguments",
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": {
+        "title": null,
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": null,
+        "openWorldHint": false
+      },
+      "_meta": null,
+      "execution": null
+    }
+  ]
+}

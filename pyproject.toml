@@ -1,0 +1,15 @@
+[project]
+name = "fl-codex"
+version = "0.1.0"
+description = "Local FL Studio controller extension and Codex MCP bridge"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = ["mcp>=1.20,<2"]
+
+[project.urls]
+Repository = "https://github.com/Radishoux/fl-codex"
+Issues = "https://github.com/Radishoux/fl-codex/issues"
+
+[tool.uv]
+package = false

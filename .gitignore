@@ -1,0 +1,10 @@
+.venv/
+.local/
+__pycache__/
+*.pyc
+connection.json
+.env
+.env.*
+*.log
+*.flp
+*.flp.bak
